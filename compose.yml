@@ -1,5 +1,13 @@
 services:
-   postgres:
+  nginx:
+    image: nginx:1.30.6
+    container_name: nginx
+    ports:
+      - '8080:80'
+    networks:
+      - app-network
+
+  postgres:
     image: postgres:18
     container_name: postgres
     environment:
@@ -13,14 +21,15 @@ services:
     networks:
       - db-network
     healthcheck:
-      test: pg_isready
+      test: pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"
       interval: 5s
-      timeout : 3s
+      timeout: 3s
       retries: 5
-      start_period : 10s
-
+      start_period: 10s
 
 networks:
+  app-network:
+    name: app-network
   db-network:
     name: db-network
     internal: true

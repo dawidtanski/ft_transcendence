@@ -1,4 +1,21 @@
 services:
+  nextjs:
+    container_name: nextjs
+    image: dev:current
+    build: ./next.js
+
+    ports:
+      - '127.0.0.1:3000:3000'
+    networks:
+      - app-network
+    volumes:
+      - type: bind
+        source: ./next.js/src
+        target: /src/app/src
+      - type: bind
+        source: ./next.js/public
+        target: /src/app/public
+
   nginx:
     image: nginx:1.30.6
     container_name: nginx

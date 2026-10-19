@@ -10,7 +10,7 @@ export default function Navbar(){
 	const [isOpen, setIsOpen] = useState(true);
 
 	return (
-		<nav className="bg-white border-b border-gray-200 dark:bg-gray-900">
+		<nav className="shrink-0 bg-white border-b border-gray-200 dark:bg-gray-900">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				{/* LOGO - MAIN PAGE */}
 				<div className="flex-shrink-0 flex items-center">

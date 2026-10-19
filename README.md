@@ -12,3 +12,5 @@ npm install && npm dev
 // npm ci ( to set up environment when there's no folder dependencies)
 
 // pg - library, which allows to communicate with postgres
+
+// password to DB is needed to change

@@ -5,9 +5,9 @@ export interface NavItem{
 
 export const navItems: NavItem[] = [
 	{ label: "Main page", href: "/" },
+	{ label: "Game", href: "/game" },
 	{ label: "Sign in/sign out", href: "/sign-in" },
 	{ label: "Leaderboards", href: "/leaderboards" },
-	{ label: "Game", href: "/game" },
 ]
 
 export const userNavItems: NavItem[] = [

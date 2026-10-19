@@ -14,3 +14,5 @@ npm install && npm dev
 // pg - library, which allows to communicate with postgres
 
 // password to DB is needed to change
+
+// Project has to have two networks for production

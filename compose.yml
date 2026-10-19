@@ -8,6 +8,19 @@ services:
       - '127.0.0.1:3000:3000'
     networks:
       - app-network
+      - db-network
+
+    environment:
+      PGHOST: postgres
+      PGPORT: "5432"
+      PGUSER: ${DB_USER}
+      PGPASSWORD: ${DB_PASSWORD}
+      PGDATABASE: ${DB_NAME}
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+        
     volumes:
       - type: bind
         source: ./next.js/src

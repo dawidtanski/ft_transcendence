@@ -4,13 +4,15 @@ PROJECT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 DOCKER ?= $(shell if docker info >/dev/null 2>&1; then printf '%s' docker; else printf '%s' 'sudo docker'; fi)
 COMPOSE = $(DOCKER) compose --project-directory "$(PROJECT_DIR)" -f "$(PROJECT_DIR)compose.yml"
 SERVICE ?=
+NGINX_BASE_IMAGE := $(shell awk '$$1 == "FROM" { print $$2; exit }' "$(PROJECT_DIR)ngnix/Dockerfile")
 
-.PHONY: help up down stop restart build rebuild ps logs config nginx-test nginx-reload cert-info db
+.PHONY: help up down clean stop restart build rebuild ps logs config nginx-test nginx-reload cert-info db
 
 help:
 	@printf '%s\n' \
 	  'make up                    Build and start; detect IPs for the certificate' \
 	  'make down                  Remove project containers and networks' \
+	  'make clean                 Remove project containers, images, and the Nginx base image' \
 	  'make stop                  Stop containers without removing them' \
 	  'make restart               Recreate containers and detect current IPs' \
 	  'make build                 Build images without starting containers' \
@@ -31,6 +33,12 @@ up:
 
 down:
 	$(COMPOSE) down
+
+clean:
+	$(COMPOSE) down --rmi all --remove-orphans
+	@if $(DOCKER) image inspect "$(NGINX_BASE_IMAGE)" >/dev/null 2>&1; then \
+		$(DOCKER) image rm "$(NGINX_BASE_IMAGE)"; \
+	fi
 
 stop:
 	$(COMPOSE) stop

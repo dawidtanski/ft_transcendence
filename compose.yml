@@ -4,8 +4,6 @@ services:
     image: dev:current
     build: ./next.js
 
-    ports:
-      - '127.0.0.1:3000:3000'
     networks:
       - app-network
       - db-network
@@ -20,7 +18,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-        
+
     volumes:
       - type: bind
         source: ./next.js/src
@@ -34,6 +32,14 @@ services:
     container_name: nginx
     ports:
       - '8080:80'
+    volumes:
+      - type: bind
+        source: ./ngnix/ngnix.conf
+        target: /etc/nginx/conf.d/default.conf
+        read_only: true
+    depends_on:
+      nextjs:
+        condition: service_started
     networks:
       - app-network
 

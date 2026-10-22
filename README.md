@@ -15,4 +15,9 @@ npm install && npm dev
 
 // password to DB is needed to change
 
-// Project has to have two networks for production
+// Project has to have two networks for production - one for db and one for frontend
+
+// db migration
+docker compose up -d --build nextjs
+docker compose exec nextjs npx drizzle-kit migrate
+docker compose up -d nginx

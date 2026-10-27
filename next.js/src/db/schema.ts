@@ -1,6 +1,10 @@
 import { integer, pgTable, varchar } from "drizzle-orm/pg-core";
 
-export const users = pgTable("users", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  nickname: varchar("nickname", { length: 50 }).notNull().unique(),
+export const usersTable = pgTable("users", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  nickname: varchar({ length: 50 }).notNull().unique(), // Manage error with duplicate Nickname
+  name: varchar({length: 50}).notNull(),
+  surName: varchar({length: 50}).notNull(),
+  mail: varchar({lenght:255}).notNull().unique(),
+
 });

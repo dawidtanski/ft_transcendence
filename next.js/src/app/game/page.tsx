@@ -1,5 +1,7 @@
 "use client"
-import Game from "@/components/Game";
+import dynamic from "next/dynamic";
+
+const Game = dynamic(() => import("@/components/Game"), { ssr: false });
 
 export default function GamePage() {
   return (
@@ -13,7 +15,8 @@ export default function GamePage() {
 			{/* CENTRE - THE GAME ITSELF */}
 			<main className="min-h-0 lg:col-span-3 flex flex-col items-center justify-center p-6 bg-gray-950">
 				<div className="w-full h-full lg:h-auto lg:aspect-video bg-black rounded-lg shadow-2xl flex items-center justify-center border border-purple-500">
-				<span className="text-purple-400 font-mono">[ Game windw ]</span>
+					<Game />
+				{/* <span className="text-purple-400 font-mono">[ Game window ]</span> */}
 				</div>
 				<h1 className="hidden lg:block text-2xl font-bold mt-4">Game name</h1>
 			</main>

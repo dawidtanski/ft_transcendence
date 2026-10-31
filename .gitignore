@@ -3,3 +3,4 @@
 /ngnix/certs/
 /postgres/certs/
 /postgres/ca/
+/postgres/public/

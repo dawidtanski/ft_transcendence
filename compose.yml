@@ -14,6 +14,7 @@ services:
       PGUSER: ${DB_USER}
       PGPASSWORD: ${DB_PASSWORD}
       PGDATABASE: ${DB_NAME}
+      PGSSLROOTCERT: /etc/postgresql/tls/ca.crt
 
     depends_on:
       postgres:
@@ -26,6 +27,7 @@ services:
       - type: bind
         source: ./next.js/public
         target: /src/app/public
+      - ./postgres/certs/ca.crt:/etc/postgresql/tls/ca.crt:ro
 
   nginx:
     image: nginx:dev
@@ -53,6 +55,15 @@ services:
   postgres:
     image: postgres:18
     container_name: postgres
+
+    command:
+      - postgres
+      - -c
+      - ssl=on
+      - -c
+      - ssl_cert_file=/etc/postgresql/tls/server.crt
+      - -c
+      - ssl_key_file=/etc/postgresql/tls/server.key
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -61,6 +72,8 @@ services:
       - type: bind
         source: ./storage/postgres
         target: /var/lib/postgresql
+      - ./postgres/certs/server.crt:/etc/postgresql/tls/server.crt:ro
+      - ./postgres/certs/server.key:/etc/postgresql/tls/server.key:ro
     networks:
       - db-network
     healthcheck:

@@ -1,3 +1,5 @@
 /storage/postgres/
 .env
 /ngnix/certs/
+/postgres/certs/
+/postgres/ca/

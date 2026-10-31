@@ -1,4 +1,13 @@
 services:
+  postgres-tls:
+    build: ./postgres
+    network_mode: none
+    restart: "no"
+    volumes:
+      - ./postgres/certs:/tls
+      - ./postgres/ca:/ca
+      - ./postgres/public:/public
+
   nextjs:
     container_name: nextjs
     image: dev:current
@@ -27,7 +36,7 @@ services:
       - type: bind
         source: ./next.js/public
         target: /src/app/public
-      - ./postgres/certs/ca.crt:/etc/postgresql/tls/ca.crt:ro
+      - ./postgres/public:/etc/postgresql/tls:ro
 
   nginx:
     image: nginx:dev
@@ -55,6 +64,9 @@ services:
   postgres:
     image: postgres:18
     container_name: postgres
+    depends_on:
+      postgres-tls:
+        condition: service_completed_successfully
 
     command:
       - postgres
@@ -72,8 +84,7 @@ services:
       - type: bind
         source: ./storage/postgres
         target: /var/lib/postgresql
-      - ./postgres/certs/server.crt:/etc/postgresql/tls/server.crt:ro
-      - ./postgres/certs/server.key:/etc/postgresql/tls/server.key:ro
+      - ./postgres/certs:/etc/postgresql/tls:ro
     networks:
       - db-network
     healthcheck:

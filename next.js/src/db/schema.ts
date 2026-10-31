@@ -12,8 +12,17 @@ export const usersTable = pgTable("users", {
   age: integer().notNull(),
   avatarURL: varchar("avatar_url").notNull().default(sql`('https://api.dicebear.com/10.x/lorelei/svg?seed=' || username)`),
   password_hash: varchar({length:255}).notNull(),
+  points: integer().notNull().default(0),
 },
   (table) => [
 	check("email_check", sql`${table.email} LIKE '%@%'`),
   	check("age_check", sql`${table.age} >= 12 AND ${table.age} <= 150`)
 ]);
+
+// export const highlightsTable = pgTable("highlights",{
+
+// });
+
+// export conwt userAchievementsTable = pgTable("achievements",{
+
+// });

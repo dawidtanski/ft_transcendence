@@ -3,7 +3,7 @@ import React, { JSX } from "react";
 interface TableProps<T>{
 	headers: string[];
 	data: T[];
-	renderRow: (item: T) => React.ReactNode;
+	renderRow: (item: T, index: number) => React.ReactNode;
 	getRowKey: (item: T) => string | number;
 }
 
@@ -19,8 +19,8 @@ export default function Table<T>({
 				</tr>
 			</thead>
 			<tbody>
-				{data.map((item) => (
-					<tr key={getRowKey(item)}>{renderRow(item)}</tr>
+				{data.map((item, index) => (
+					<tr key={getRowKey(item)}>{renderRow(item, index)}</tr>
 				))}
 			</tbody>
 			

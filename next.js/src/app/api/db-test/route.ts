@@ -10,7 +10,7 @@ export async function GET() {
 
     return Response.json({ ok: true });
   } catch (error) {
-    console.error("Test bazy nie powiódł się:", error);
+    console.error("Database test failed:", error);
 
     return Response.json({ ok: false }, { status: 500 });
   }

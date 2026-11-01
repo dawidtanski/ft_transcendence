@@ -1,11 +1,10 @@
-import React from "react";
-import { Table } from 'antd';
-import type { TableProps } from 'antd';
+import Table from "./Table";
+import { getBestUsers } from "@/db/queries/users";
 
 export default function Leaderboards() {
   return (
 		<>
-
+		<Table()/>
 		</>
   );
 }

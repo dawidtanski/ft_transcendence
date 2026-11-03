@@ -1,7 +1,6 @@
 import { table } from "console";
 import { sql } from "drizzle-orm";
-import { check, integer, pgTable, timestamp, unique, varchar, } from "drizzle-orm/pg-core";
-import { text } from "stream/consumers";
+import { check, integer, pgTable, timestamp, unique, varchar, text, index } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -34,6 +33,28 @@ export const chatsTable = pgTable("chats",
     check(
       "chats_users_order",
       sql`${table.firstUserId} < ${table.secondUserId}`,
+    ),
+  ],
+);
+
+export const messagesTable = pgTable(
+  "messages",
+  {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    chatId: integer("chat_id").notNull().references(() => chatsTable.id),
+    senderId: integer("sender_id").notNull().references(() => usersTable.id),body: text("body").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    index("messages_chat_history_idx").on(
+      table.chatId,
+      table.createdAt,
+      table.id,
+    ),
+
+    check(
+      "messages_body_not_empty",
+      sql`length(btrim(${table.body})) > 0`,
     ),
   ],
 );

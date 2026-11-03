@@ -18,6 +18,7 @@ services:
       - db-network
 
     environment:
+      TLS_IPS: ${TLS_IPS:-}
       PGHOST: postgres
       PGPORT: "5432"
       PGUSER: ${DB_USER}

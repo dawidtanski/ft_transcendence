@@ -1,6 +1,5 @@
-import { link } from "fs";
 import Link from "next/link";
-import { NavItem } from "@/config/navigation";
+import type { NavItem } from "@/config/navigation";
 
 
 export default function Footer({links = []}: {links: NavItem[]}) {

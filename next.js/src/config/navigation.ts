@@ -16,5 +16,8 @@ export const userNavItems: NavItem[] = [
 ]
 
 export const footerNavItems: NavItem[] = [
-	{},
+	{label: "About", href: "/about"},
+	{label: "How to play?", href: "/how-to-play"},
+	{label: "App Github", href: "/app-github"},
+	{label: "Privacy Policy", href: "/privacy"},
 ]

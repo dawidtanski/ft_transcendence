@@ -14,3 +14,7 @@ export const userNavItems: NavItem[] = [
 	{label: "My Profile", href: "/profile"},
 	{label: "My Trophies", href: "/trophies"},
 ]
+
+export const footerNavItems: NavItem[] = [
+	{},
+]

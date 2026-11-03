@@ -36,6 +36,9 @@ services:
       - type: bind
         source: ./next.js/public
         target: /src/app/public
+      - type: bind
+        source: ./next.js/drizzle
+        target: /src/app/drizzle
       - ./postgres/public:/etc/postgresql/tls:ro
 
   nginx:

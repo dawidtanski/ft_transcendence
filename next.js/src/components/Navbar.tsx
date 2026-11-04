@@ -7,7 +7,7 @@ import { navItems } from "@/config/navigation";
 
 export default function Navbar(){
 	const pathname = usePathname();
-	const [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<nav className="shrink-0 bg-white border-b border-gray-200 dark:bg-gray-900">
@@ -46,8 +46,10 @@ export default function Navbar(){
 					<button
 						onClick={()=>setIsOpen(!isOpen)}
 						type="button"
-						className="text-gray-500 hover:text-gray-600 focus:outline-none"
+						className="inline-flex min-h-11 min-w-11 touch-manipulation items-center justify-center text-gray-500 hover:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
 						aria-label="Toggle menu"
+						aria-controls="mobile-navigation"
+						aria-expanded={isOpen}
 						>
 					{/* HAMBURGER ICON */}
 					 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -62,7 +64,7 @@ export default function Navbar(){
 
 				</div>
 				{/* MOBILE ROLL-UP MENU */}
-				{isOpen && (<div className="md:hidden bg-gray-50 dark:bg-gray-800 px-2 pt-2 pb-3 space-y-1">
+				{isOpen && (<div id="mobile-navigation" className="md:hidden bg-gray-50 dark:bg-gray-800 px-2 pt-2 pb-3 space-y-1">
 				{navItems.map((item) => {
             	const isActive = pathname === item.href;
             	return (

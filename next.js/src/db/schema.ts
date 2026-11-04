@@ -1,5 +1,6 @@
 import { table } from "console";
 import { sql } from "drizzle-orm";
+import { boolean } from "drizzle-orm/gel-core";
 import { check, integer, pgTable, timestamp, unique, varchar, text, index } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
@@ -12,6 +13,7 @@ export const usersTable = pgTable("users", {
   avatarURL: varchar("avatar_url").notNull().default(sql`('https://api.dicebear.com/10.x/lorelei/svg?seed=' || username)`),
   password_hash: varchar({ length: 255 }).notNull(),
   points: integer().notNull().default(0),
+  google_hash: varchar({length: 255}).notNull().references(()=>)
 },
   (table) => [
     check("email_check", sql`${table.email} LIKE '%@%'`),
@@ -58,6 +60,20 @@ export const messagesTable = pgTable(
     ),
   ],
 );
+
+export const googleToken = pgTable("tokens", {
+	iss: varchar({ length: 255 }).primaryKey().notNull(),
+	azp: varchar({ length: 255 }).notNull(),
+	aud: varchar({ length: 255 }).notNull(),
+	sub: varchar({ length: 255 }).notNull(),
+	at_hash: varchar({ length: 255 }).notNull(),
+	hd: varchar({ length: 255 }).notNull(),
+	email: varchar({ length: 255 }).notNull(),
+	email_verified: boolean(),
+	iat: integer(),	// might be problem with overloading
+	exp: integer().notNull(), // might be problem with overloading 
+	nonce: integer().notNull(),
+})
 
 // export const highlightsTable = pgTable("highlights",{
 

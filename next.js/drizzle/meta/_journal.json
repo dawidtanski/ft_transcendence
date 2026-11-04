@@ -15,6 +15,13 @@
       "when": 1793461628698,
       "tag": "0001_clean_miracleman",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793721974620,
+      "tag": "0002_add_private_chats",
+      "breakpoints": true
     }
   ]
 }

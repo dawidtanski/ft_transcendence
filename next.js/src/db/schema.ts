@@ -12,7 +12,7 @@ export const usersTable = pgTable("users", {
   avatarURL: varchar("avatar_url").notNull().default(sql`('https://api.dicebear.com/10.x/lorelei/svg?seed=' || username)`),
   password_hash: varchar({ length: 255 }).notNull(),
   points: integer().notNull().default(0),
-  google_hash: varchar({length: 255}).notNull().references(()=>googleTokenTable.at_hash)
+  google_hash: varchar({length: 255}).notNull().references(()=>googleTokenTable.sub)
 },
   (table) => [
     check("email_check", sql`${table.email} LIKE '%@%'`),

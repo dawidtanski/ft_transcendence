@@ -1,12 +1,12 @@
 import { db } from "@/lib/db";
-import { users } from "@/db/schema";
+import { usersTable } from "@/db/schema";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    await db.select({ id: users.id }).from(users).limit(1);
+    await db.select({ id: usersTable.id }).from(usersTable).limit(1);
 
     return Response.json({ ok: true });
   } catch (error) {

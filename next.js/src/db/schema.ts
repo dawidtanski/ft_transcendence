@@ -4,10 +4,10 @@ import { check, integer, pgTable, timestamp, unique, varchar, text, index } from
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   nickname: varchar({ length: 50 }).notNull().unique(), // Manage error with duplicate Nickname
-  name: varchar({ length: 50 }).notNull(),
-  surName: varchar({ length: 50 }).notNull(),
+  name: varchar({ length: 50 }),
+  surName: varchar({ length: 50 }),
   email: varchar({ length: 255 }).notNull().unique(),
-  age: integer().notNull(),
+  age: integer(),
   avatarURL: varchar("avatar_url").notNull().default("https://api.dicebear.com/10.x/lorelei/svg?seed=default"),
   password_hash: varchar({ length: 255 }),
   points: integer().notNull().default(0),
@@ -79,6 +79,16 @@ export const sessionsTable = pgTable("sessions",{
 	index("sessions_user_id_idx").on(table.user_id),
 	]
 );
+
+export const oauthLoginAttemptsTable = pgTable("oauth_login_attempts",{
+	
+	token_hash: varchar({ length: 255 }).primaryKey(),
+	state: text().notNull(),
+	nonce: text().notNull(),
+	code_verifier: text().notNull(),
+	expires_at: timestamp({ withTimezone: true, mode: "date" }).notNull(),
+	}
+)
 
 // export const googleTokenTable = pgTable("tokens", {
 // 	iss: varchar({ length: 255 }).notNull(),

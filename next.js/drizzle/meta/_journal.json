@@ -22,6 +22,13 @@
       "when": 1793721974620,
       "tag": "0002_add_private_chats",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794544917890,
+      "tag": "0003_migration_73b0b4f33690",
+      "breakpoints": true
     }
   ]
 }

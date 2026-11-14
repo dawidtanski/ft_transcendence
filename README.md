@@ -46,3 +46,13 @@ TLS is configured for Next.js and Drizzle. PostgreSQL does not yet reject all no
 ```sh
 docker compose exec nextjs npm run db:migrate
 ```
+
+// O-AUTH
+Click login
+→ Save temporary login attempt (lub: Store temporary login state)
+→ Redirect to Google
+→ Verify Google response (lub: Validate Google callback)
+→ Find or create user
+→ Create session in PostgreSQL
+→ Set session cookie
+→ Protected profile page

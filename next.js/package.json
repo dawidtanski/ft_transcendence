@@ -18,6 +18,8 @@
     "argon2": "0.45.2",
     "drizzle-orm": "^0.45.4",
     "next": "16.4.1",
+    "db:seed": "node src/db/seed.mjs",
+    "openid-client": "^6.9.0",
     "pg": "^8.23.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",

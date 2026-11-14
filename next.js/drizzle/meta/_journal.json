@@ -26,8 +26,15 @@
     {
       "idx": 3,
       "version": "7",
-      "when": 1794678090591,
-      "tag": "0003_migration_88a2a498ba9b",
+      "when": 1794544917890,
+      "tag": "0003_migration_73b0b4f33690",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794556018904,
+      "tag": "0004_migration_8e59e6d5a249",
       "breakpoints": true
     }
   ]

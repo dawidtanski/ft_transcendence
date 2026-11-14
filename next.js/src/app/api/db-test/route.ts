@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { users } from "@/db/schema";
+import { usersTable as users } from "@/db/schema";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

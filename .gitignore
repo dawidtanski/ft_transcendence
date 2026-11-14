@@ -6,3 +6,4 @@
 /postgres/public/
 .env.local
 next.js/tests/
+OAUTH_2_1_GUIDE.md

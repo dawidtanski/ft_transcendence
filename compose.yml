@@ -8,6 +8,16 @@ services:
       - ./postgres/ca:/ca
       - ./postgres/public:/public
 
+  game-serv:
+    container_name: game-serv
+    build: ./game-serv
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: "3001"
+    networks:
+      - app-network
+
   nextjs:
     container_name: nextjs
     image: dev:current
@@ -25,10 +35,13 @@ services:
       PGPASSWORD: ${DB_PASSWORD}
       PGDATABASE: ${DB_NAME}
       PGSSLROOTCERT: /etc/postgresql/tls/ca.crt
+      NEXT_PUBLIC_GAME_SERVER_URL: http://game-serv:3001
 
     depends_on:
       postgres:
         condition: service_healthy
+      game-serv:
+        condition: service_started
 
     volumes:
       - type: bind

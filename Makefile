@@ -6,7 +6,7 @@ COMPOSE = $(DOCKER) compose --project-directory "$(PROJECT_DIR)" -f "$(PROJECT_D
 SERVICE ?=
 NGINX_BASE_IMAGE := $(shell awk '$$1 == "FROM" { print $$2; exit }' "$(PROJECT_DIR)ngnix/Dockerfile")
 
-.PHONY: help up down clean stop restart build rebuild ps logs config nginx-test nginx-reload cert-info db
+.PHONY: help up down clean stop restart build rebuild ps logs config nginx-test nginx-reload cert-info db generate migrate
 
 help:
 	@printf '%s\n' \
@@ -25,6 +25,8 @@ help:
 	  'make nginx-reload          Check and reload Nginx configuration' \
 	  'make cert-info             Show certificate validity and addresses' \
 	  'make db                    Open psql inside PostgreSQL' \
+	  'make generate              Generate a Drizzle migration with a random name' \
+	  'make migrate               Apply pending migrations to PostgreSQL' \
 	  '' \
 	  'Database data and certificates are preserved by these targets.'
 
@@ -76,3 +78,12 @@ cert-info:
 
 db:
 	$(COMPOSE) exec postgres sh -c 'exec psql -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"'
+
+generate:
+	@set -eu; \
+	rand_name=$$(od -An -N6 -tx1 /dev/urandom | tr -d ' \n'); \
+	test -n "$$rand_name"; \
+	$(COMPOSE) exec -T nextjs npm run db:generate -- --name="migration_$$rand_name"
+
+migrate:
+	$(COMPOSE) exec -T nextjs npm run db:migrate

@@ -4,3 +4,5 @@
 /postgres/certs/
 /postgres/ca/
 /postgres/public/
+.env.local
+next.js/tests/

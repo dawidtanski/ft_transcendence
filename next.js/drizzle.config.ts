@@ -3,7 +3,11 @@ import { readFileSync } from "node:fs";
 
 export default defineConfig({
   dialect: "postgresql",
-  schema: "./src/db/schema.ts",
+//   schema: "./src/db/schema.ts",
+  schema: [
+  "./src/db/schema.ts",
+  "./src/db/auth-tables.ts",
+  ],
   out: "./drizzle",
   dbCredentials: {
 	ssl: process.env.PGSSLROOTCERT

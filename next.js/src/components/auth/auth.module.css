@@ -1,0 +1,10 @@
+.form { max-width: 26rem; margin: 1.5rem auto; }
+.fields { display: grid; gap: 0.75rem; border: 1px solid currentColor; padding: 1.5rem; border-radius: 0.5rem; }
+.fields input, .fields button { font: inherit; padding: 0.7rem; border-radius: 0.3rem; border: 1px solid currentColor; }
+.fields input { min-width: 0; width: 100%; box-sizing: border-box; }
+.fields button { cursor: pointer; margin-top: 0.5rem; }
+.fields :disabled { cursor: wait; opacity: 0.7; }
+.message { min-height: 1.5em; }
+.account { max-width: 38rem; margin: 3rem auto; padding: 1.5rem; }
+.account dt { font-weight: 600; margin-top: 1rem; }
+.account dd { margin: 0.25rem 0 1rem; overflow-wrap: anywhere; }

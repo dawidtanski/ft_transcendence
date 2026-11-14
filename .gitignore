@@ -4,3 +4,4 @@
 /postgres/certs/
 /postgres/ca/
 /postgres/public/
+node_modules

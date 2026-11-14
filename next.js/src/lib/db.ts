@@ -7,14 +7,24 @@ const globalForDb = globalThis as typeof globalThis & {
   pgPool?: Pool;
 };
 
+const sslCertPath = process.env.PGSSLROOTCERT;
+const sslConfig = sslCertPath
+  ? {
+      ca: readFileSync(sslCertPath, "utf8"),
+      rejectUnauthorized: true,
+    }
+  : false;
+
 const pool =
   globalForDb.pgPool ??
   new Pool({
+    host: process.env.PGHOST ?? "localhost",
+    port: Number(process.env.PGPORT ?? 5432),
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    database: process.env.PGDATABASE,
     max: 10,
-	ssl: {
-  	ca: readFileSync(process.env.PGSSLROOTCERT!, "utf8"),
-  	rejectUnauthorized: true,
-	},
+    ssl: sslConfig,
     connectionTimeoutMillis: 5000,
   });
 

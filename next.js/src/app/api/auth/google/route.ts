@@ -47,9 +47,18 @@ export async function GET() {
   } catch {
     console.error("Could not start Google login");
 
-    const response = NextResponse.redirect(
-      appUrl("/sign-in?error=oauth"),
-    );
+    let response: NextResponse;
+
+    try {
+      response = NextResponse.redirect(
+        appUrl("/sign-in?error=oauth"),
+      );
+    } catch {
+      response = NextResponse.json(
+        { error: "Authentication configuration error" },
+        { status: 500 },
+      );
+    }
 
     response.headers.set("Cache-Control", "no-store");
     return response;

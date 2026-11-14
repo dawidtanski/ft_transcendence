@@ -1,4 +1,5 @@
 "use client";
+import GameScene from "@/game/scenes/GameScene";
 import { useEffect, useRef } from "react";
 
 export default function Game() {
@@ -11,7 +12,7 @@ export default function Game() {
     (async () => {
       // Imported here, so they only load in the browser
       const Phaser = (await import("phaser")).default;
-      const TutorialScene = (await import("@/game/scenes/TutorialScene")).default;
+      const GameScene = (await import("@/game/scenes/GameScene")).default;
 
       if (cancelled || !ref.current) return;
 	
@@ -21,10 +22,10 @@ export default function Game() {
         parent: ref.current,
         width: 800,
         height: 600,
-        scene: TutorialScene,
+        scene: GameScene,
         physics: {
           default: "arcade",
-          arcade: { gravity: { x: 0, y: 300 }, debug: false },
+          // arcade: { gravity: { x: 0, y: 300 }, debug: false },
         },
         scale: {
           mode: Phaser.Scale.FIT,

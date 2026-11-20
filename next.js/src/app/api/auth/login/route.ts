@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { findUserForPasswordLogin } from "@/db/queries/auth-users";
+import { findUserForPasswordLogin } from "@/db/queries/auth-tables";
 import { getAuthConfig } from "@/lib/auth/config";
 import { parseLoginInput } from "@/lib/auth/input";
 import { verifyPassword } from "@/lib/auth/password";

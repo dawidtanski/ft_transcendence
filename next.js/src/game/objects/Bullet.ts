@@ -1,10 +1,9 @@
 import Phaser from "phaser";
-import { GAME_CONFIG } from "../config";
 import Player from "../objects/Player";
 
 export default class Bullet extends Phaser.Physics.Arcade.Sprite {
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    super(scene, x, y, "star");   // "bullet" is a texture key you load or generate
+    super(scene, x, y, "bomb");   // "bullet" is a texture key you load or generate
   }
 
   fire(x: number, y: number, velocityY: number) {
